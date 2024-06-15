@@ -30,7 +30,7 @@ export default function App() {
       <ol className="grid grid-cols-[repeat(25,20px)]">
         {values.map((value, i) => {
           return (
-            <li key={i} className="w-fit">
+            <li key={i}>
               <input
                 type="checkbox"
                 checked={value ? true : false}
