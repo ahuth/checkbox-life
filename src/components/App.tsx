@@ -1,11 +1,13 @@
 import {useReducer} from 'react';
+import Button from './Button';
+import {step} from '../step';
 
 const initialValues = new Array(100).fill(false);
 
 export default function App() {
   const [values, dispatch] = useReducer(function (
     prevState: boolean[],
-    action: {type: 'toggle'; index: number},
+    action: {type: 'toggle'; index: number} | {type: 'step'},
   ) {
     if (action.type === 'toggle') {
       const nextState = prevState.slice();
@@ -13,11 +15,18 @@ export default function App() {
       return nextState;
     }
 
+    if (action.type === 'step') {
+      return step(prevState);
+    }
+
     return prevState;
   }, initialValues);
 
   return (
     <main>
+      <div>
+        <Button onClick={() => dispatch({type: 'step'})}>Step</Button>
+      </div>
       <ol className="grid grid-cols-[repeat(10,20px)]">
         {values.map((value, i) => {
           return (
