@@ -2,7 +2,7 @@ import {useReducer} from 'react';
 import Button from './Button';
 import {step} from '../step';
 
-const initialValues = new Array<number>(100).fill(0);
+const initialValues = new Array<number>(625).fill(0);
 
 export default function App() {
   const [values, dispatch] = useReducer(function (
@@ -16,7 +16,7 @@ export default function App() {
     }
 
     if (action.type === 'step') {
-      return step(prevState, 10);
+      return step(prevState, 25);
     }
 
     return prevState;
@@ -27,7 +27,7 @@ export default function App() {
       <div>
         <Button onClick={() => dispatch({type: 'step'})}>Step</Button>
       </div>
-      <ol className="grid grid-cols-[repeat(10,20px)]">
+      <ol className="grid grid-cols-[repeat(25,20px)]">
         {values.map((value, i) => {
           return (
             <li key={i} className="w-fit">
