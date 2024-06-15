@@ -2,16 +2,16 @@ import {useReducer} from 'react';
 import Button from './Button';
 import {step} from '../step';
 
-const initialValues = new Array(100).fill(false);
+const initialValues = new Array<number>(100).fill(0);
 
 export default function App() {
   const [values, dispatch] = useReducer(function (
-    prevState: boolean[],
+    prevState: number[],
     action: {type: 'toggle'; index: number} | {type: 'step'},
   ) {
     if (action.type === 'toggle') {
       const nextState = prevState.slice();
-      nextState[action.index] = !nextState[action.index];
+      nextState[action.index] = nextState[action.index] ? 0 : 1;
       return nextState;
     }
 
@@ -33,7 +33,7 @@ export default function App() {
             <li key={i} className="w-fit">
               <input
                 type="checkbox"
-                checked={value}
+                checked={value ? true : false}
                 onChange={() => dispatch({type: 'toggle', index: i})}
               />
             </li>

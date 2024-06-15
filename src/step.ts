@@ -1,4 +1,4 @@
-export function step(values: boolean[], rowSize: number): boolean[] {
+export function step(values: number[], rowSize: number): number[] {
   // Clone the values so we don't modify the list we're counting, which would mess up the counts.
   const clone = values.slice();
 
@@ -6,11 +6,11 @@ export function step(values: boolean[], rowSize: number): boolean[] {
     const neighborsCount = countNeihbors(i, rowSize, values);
 
     if (neighborsCount < 2) {
-      clone[i] = false;
+      clone[i] = 0;
     } else if (neighborsCount === 3) {
-      clone[i] = true;
+      clone[i] = 1;
     } else if (neighborsCount > 3) {
-      clone[i] = false;
+      clone[i] = 0;
     }
   }
 
@@ -20,7 +20,7 @@ export function step(values: boolean[], rowSize: number): boolean[] {
 function countNeihbors(
   index: number,
   rowSize: number,
-  values: readonly boolean[],
+  values: readonly number[],
 ): number {
   const {x, y} = getCoordinates(index, rowSize);
 
@@ -96,16 +96,7 @@ function countNeihbors(
       )
     ];
 
-  const v1 = n1 ? 1 : 0;
-  const v2 = n2 ? 1 : 0;
-  const v3 = n3 ? 1 : 0;
-  const v4 = n4 ? 1 : 0;
-  const v5 = n5 ? 1 : 0;
-  const v6 = n6 ? 1 : 0;
-  const v7 = n7 ? 1 : 0;
-  const v8 = n8 ? 1 : 0;
-
-  return v1 + v2 + v3 + v4 + v5 + v6 + v7 + v8;
+  return n1 + n2 + n3 + n4 + n5 + n6 + n7 + n8;
 }
 
 function getCoordinates(index: number, rowSize: number) {
