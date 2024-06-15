@@ -16,7 +16,7 @@ export default function App() {
     }
 
     if (action.type === 'step') {
-      return step(prevState);
+      return step(prevState, 10);
     }
 
     return prevState;
