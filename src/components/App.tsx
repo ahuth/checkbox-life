@@ -1,4 +1,4 @@
-import {useState} from 'react';
+import {useEffect, useState} from 'react';
 import Button from './Button';
 import {step} from '../step';
 
@@ -24,6 +24,20 @@ function clear() {
 
 export default function App() {
   const [values, setValues] = useState(initialValues);
+  const [playing, setPlaying] = useState(false);
+
+  useEffect(() => {
+    function run() {
+      if (playing) {
+        setValues(next);
+        id = window.requestAnimationFrame(run);
+      }
+    }
+
+    let id = window.requestAnimationFrame(run);
+
+    return () => window.cancelAnimationFrame(id);
+  }, [playing]);
 
   return (
     <main>
@@ -31,6 +45,9 @@ export default function App() {
         <Button onClick={() => setValues(randomize)}>Randomize</Button>
         <Button onClick={() => setValues(clear)}>Clear</Button>
         <Button onClick={() => setValues(next)}>Step</Button>
+        <Button onClick={() => setPlaying((p) => !p)}>
+          {playing ? 'Stop' : 'Go'}
+        </Button>
       </div>
       <ol className="grid grid-cols-[repeat(25,20px)]">
         {values.map((value, i) => {
