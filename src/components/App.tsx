@@ -42,12 +42,12 @@ export default function App() {
   return (
     <main>
       <div>
-        <Button onClick={() => setValues(randomize)}>Randomize</Button>
-        <Button onClick={() => setValues(clear)}>Clear</Button>
         <Button onClick={() => setValues(next)}>Step</Button>
         <Button onClick={() => setPlaying((p) => !p)}>
-          {playing ? 'Stop' : 'Go'}
+          {playing ? 'Stop' : 'Play'}
         </Button>
+        <Button onClick={() => setValues(clear)}>Clear</Button>
+        <Button onClick={() => setValues(randomize)}>Randomize</Button>
       </div>
       <ol className="grid grid-cols-[repeat(25,20px)]">
         {values.map((value, i) => {
