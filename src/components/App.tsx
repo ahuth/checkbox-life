@@ -14,12 +14,22 @@ function toggle(index: number, values: number[]) {
   return nextState;
 }
 
+function randomize(values: number[]) {
+  return values.map(() => Math.round(Math.random()));
+}
+
+function clear() {
+  return initialValues;
+}
+
 export default function App() {
   const [values, setValues] = useState(initialValues);
 
   return (
     <main>
       <div>
+        <Button onClick={() => setValues(randomize)}>Randomize</Button>
+        <Button onClick={() => setValues(clear)}>Clear</Button>
         <Button onClick={() => setValues(next)}>Step</Button>
       </div>
       <ol className="grid grid-cols-[repeat(25,20px)]">
