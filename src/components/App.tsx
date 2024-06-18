@@ -40,7 +40,7 @@ export default function App() {
   }, [playing]);
 
   return (
-    <main>
+    <main className="p-2">
       <div className="flex flex-wrap gap-1">
         <Button onClick={() => setValues(next)}>Step</Button>
         <Button onClick={() => setPlaying((p) => !p)}>
