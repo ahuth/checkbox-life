@@ -48,6 +48,12 @@ export default function App() {
         </Button>
         <Button onClick={() => setValues(clear)}>Clear</Button>
         <Button onClick={() => setValues(randomize)}>Randomize</Button>
+        <a
+          className="text-blue-600 underline"
+          href="https://github.com/ahuth/checkbox-life"
+        >
+          Source code
+        </a>
       </div>
       <ol className="grid grid-cols-[repeat(25,20px)]">
         {values.map((value, i) => {
