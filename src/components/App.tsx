@@ -2,7 +2,7 @@ import {useEffect, useState} from 'react';
 import Button from './Button';
 import {step} from '../step';
 
-const initialValues = new Array<number>(625).fill(0);
+const initialValues = new Array<number>(25 * 25).fill(0);
 
 function next(values: number[]) {
   return step(values, Math.sqrt(initialValues.length));
