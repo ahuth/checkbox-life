@@ -3,7 +3,7 @@ export function step(values: number[], rowSize: number): number[] {
   const clone = values.slice();
 
   for (let i = 0; i < values.length; i++) {
-    const neighborsCount = countNeihbors(i, rowSize, values);
+    const neighborsCount = countNeighbors(i, rowSize, values);
 
     if (neighborsCount < 2) {
       clone[i] = 0;
@@ -17,7 +17,7 @@ export function step(values: number[], rowSize: number): number[] {
   return clone;
 }
 
-function countNeihbors(
+function countNeighbors(
   index: number,
   rowSize: number,
   values: readonly number[],
