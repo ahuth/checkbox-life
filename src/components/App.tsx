@@ -42,11 +42,25 @@ export default function App() {
   return (
     <main className="p-2">
       <div className="flex flex-wrap gap-1">
-        <Button onClick={() => setValues(next)}>Step</Button>
+        <Button
+          onClick={() => {
+            setValues(next);
+            setPlaying(false);
+          }}
+        >
+          Step
+        </Button>
         <Button onClick={() => setPlaying((p) => !p)}>
           {playing ? 'Stop' : 'Play'}
         </Button>
-        <Button onClick={() => setValues(clear)}>Clear</Button>
+        <Button
+          onClick={() => {
+            setValues(clear);
+            setPlaying(false);
+          }}
+        >
+          Clear
+        </Button>
         <Button onClick={() => setValues(randomize)}>Randomize</Button>
         <a
           className="text-blue-600 underline"
