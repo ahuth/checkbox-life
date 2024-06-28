@@ -1,35 +1,14 @@
-import {useEffect, useState} from 'react';
+import {useEffect, useReducer} from 'react';
 import Button from './Button';
-import {step} from '../step';
-
-const initialValues = new Array<number>(25 * 25).fill(0);
-
-function next(values: number[]) {
-  return step(values, Math.sqrt(initialValues.length));
-}
-
-function toggle(index: number, values: number[]) {
-  const nextState = values.slice();
-  nextState[index] = nextState[index] ? 0 : 1;
-  return nextState;
-}
-
-function randomize(values: number[]) {
-  return values.map(() => Math.round(Math.random()));
-}
-
-function clear() {
-  return initialValues;
-}
+import {initialState, reducer} from '../reducer';
 
 export default function App() {
-  const [values, setValues] = useState(initialValues);
-  const [playing, setPlaying] = useState(false);
+  const [state, dispatch] = useReducer(reducer, initialState);
 
   useEffect(() => {
     function run() {
-      if (playing) {
-        setValues(next);
+      if (state.playing) {
+        dispatch({type: 'TICK'});
         id = window.requestAnimationFrame(run);
       }
     }
@@ -37,31 +16,19 @@ export default function App() {
     let id = window.requestAnimationFrame(run);
 
     return () => window.cancelAnimationFrame(id);
-  }, [playing]);
+  }, [state.playing]);
 
   return (
     <main className="p-2">
       <div className="flex flex-wrap gap-1">
-        <Button
-          onClick={() => {
-            setValues(next);
-            setPlaying(false);
-          }}
-        >
-          Step
+        <Button onClick={() => dispatch({type: 'CLICKED_NEXT'})}>Step</Button>
+        <Button onClick={() => dispatch({type: 'CLICKED_RUN'})}>
+          {state.playing ? 'Stop' : 'Play'}
         </Button>
-        <Button onClick={() => setPlaying((p) => !p)}>
-          {playing ? 'Stop' : 'Play'}
+        <Button onClick={() => dispatch({type: 'CLICKED_CLEAR'})}>Clear</Button>
+        <Button onClick={() => dispatch({type: 'CLICKED_RANDOMIZE'})}>
+          Randomize
         </Button>
-        <Button
-          onClick={() => {
-            setValues(clear);
-            setPlaying(false);
-          }}
-        >
-          Clear
-        </Button>
-        <Button onClick={() => setValues(randomize)}>Randomize</Button>
         <a
           className="text-blue-600 underline"
           href="https://github.com/ahuth/checkbox-life"
@@ -70,13 +37,13 @@ export default function App() {
         </a>
       </div>
       <ol className="grid grid-cols-[repeat(25,20px)]">
-        {values.map((value, i) => {
+        {state.values.map((value, i) => {
           return (
             <li key={i}>
               <input
                 type="checkbox"
                 checked={value ? true : false}
-                onChange={() => setValues(toggle.bind(null, i))}
+                onChange={() => dispatch({type: 'CLICKED_TOGGLE', index: i})}
               />
             </li>
           );
