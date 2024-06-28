@@ -36,7 +36,7 @@ export default function App() {
           Source code
         </a>
       </div>
-      <ol className="grid grid-cols-[repeat(25,20px)]">
+      <ol className="grid grid-cols-[repeat(50,20px)]">
         {state.values.map((value, i) => {
           return (
             <li key={i}>
