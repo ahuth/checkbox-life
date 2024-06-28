@@ -2,7 +2,7 @@ import {step} from './step';
 
 export const initialState = {
   playing: false,
-  values: new Array<number>(25 * 25).fill(0),
+  values: new Array<number>(50 * 50).fill(0),
 };
 
 type Action =
